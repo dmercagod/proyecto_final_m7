@@ -1,0 +1,11 @@
+Palacio Helado	|	Palacio hecho de hielo	|	Viña del Mar
+Casa Limonagrio	|	Casa ácida y fresca	|	Viña del Mar
+Casa Flama	|	Casa cálida y acogedora	|	Viña del Mar
+Apartamento BMO	|	Apartamento con vista al mar	|	Viña del Mar
+Casa Reina Tierra	|	Casa con gran jardín	|	Zapallar
+Cabaña Billy	|	Cabaña en el bosque	|	Zapallar
+casita	|	casa cuadrada	|	Santo Domingo
+Castillo Chicle	|	Castillo de caramelos	|	Camarones
+Casa Jake	|	Casa con amplio jardín	|	Camarones
+Casa Finn	|	Casa de madera en el árbol	|	Camarones
+Cueva Marceline	|	Cueva oscura y misteriosa	|	Camarones

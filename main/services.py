@@ -1,6 +1,12 @@
 from main.models import Inmueble, PerfilUsuario, Comuna
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
+from django.db.models import Q
+from django.db import connection
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
+
 
 
 def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_inmueble, precio_mensual_arriendo, comuna_cod, propietario_rut):
@@ -17,14 +23,31 @@ def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamie
     habitaciones = habitaciones,
     baños = baños,
     direccion = direccion,
-    tipo_inmueble = tipo_inmueble,
+    tipo_de_inmueble = tipo_inmueble,
     precio_mensual_arriendo = precio_mensual_arriendo,
     comuna = comuna,
     propietario = propietario)
 
 
-def editar_inmueble(inmueble_id, nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_inmueble, precio_mensual_arriendo):
-  pass
+def editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_inmueble, precio_mensual_arriendo, inmueble_id, cod_comuna, rut):
+  inmueble = Inmueble.objects.get(id=inmueble_id)
+  comuna = Comuna.objects.get(nombre=cod_comuna)
+  propietario = User.objects.get(username=rut)
+
+  inmueble.nombre = nombre
+  inmueble.descripcion = descripcion
+  inmueble.m2_construidos = m2_construidos
+  inmueble.m2_totales = m2_totales
+  inmueble.estacionamientos = estacionamientos
+  inmueble.habitaciones = habitaciones
+  inmueble.baños = baños
+  inmueble.direccion = direccion
+  inmueble.tipo_de_inmueble = tipo_inmueble
+  inmueble.precio_mensual_arriendo = precio_mensual_arriendo
+  inmueble.comuna = comuna
+  inmueble.propietario = propietario
+  inmueble.save()
+
 
 
 def eliminar_inmueble(inmueble_id):
@@ -35,28 +58,48 @@ def eliminar_inmueble(inmueble_id):
 
 
 
+def obtener_inmuebles_comunas(filtro):
+  if filtro is None:
+    return Inmueble.objects.all().order_by('comuna')
+  
+  #! select * from main_inmueble where nombre like %Elegante% or descripcion like %Elegante%;
+  return Inmueble.objects.filter(Q(nombre__icontains=filtro) | Q(descripcion__icontains=filtro)).order_by('comuna')
 
+
+def obtener_inmuebles_region(filtro):
+  if filtro is None:
+    return Inmueble.objects.all().order_by('comuna')
+  
+  return Inmueble.objects.filter(Q(nombre__icontains=filtro) | Q(descripcion__icontains=filtro)).order_by('comuna')
+
+
+def obtener_inmuebles_region(filtro):
+  consulta = '''
+    select I.nombre, I.descripcion, R.nombre as region from main_inmueble as I
+    join main_comuna as C on I.comuna_id = C.cod
+    join main_region as R on C.region_id = R.cod
+    order by R.cod;
+  '''
+  cursor = connection.cursor()
+  cursor.execute(consulta)
+  registros = cursor.fetchall() # LAZY LOADING
+  return registros
 
 
 
 
 def crear_usuario(username, first_name, last_name, email, password, password_confirm, direccion, telefono = None) -> bool:
-  print('llegamos')
+  
   #! 1. Validamos que ambas contraseñas ingresadas sean iguales
   if password != password_confirm:
     print('constreñas direfrentes')
     return False, 'Las contraseñas no coinciden'
+  
   #! 2. Creamos el objeto usuario
   try:
     user = User.objects.create_user(username, email, password, first_name = first_name, last_name=last_name)
     #user.save()
   except IntegrityError:
-    print('rut duplicados')
-    print(username)
-    print(email)
-    print(password)
-    print(first_name)
-    print(last_name)
     return False, 'Rut duplicado'
     
 
@@ -83,8 +126,35 @@ def editar_usuario(user, first_name, last_name, email, password, direccion, tele
   perfil_usuario.telefono = telefono
   perfil_usuario.save()
 
+def editar_usuario_sin_password(username, first_name, last_name, email, direccion, telefono=None):
+  # 1. Nos traemos el 'user' y modificamos sus datos
+  user = User.objects.get(username=username)
+  user.first_name = first_name
+  user.last_name = last_name
+  user.email = email
+  user.save()
+  # 2. Nos traemos el 'user_profile' y modificamos sus datos
+  user_profile = PerfilUsuario.objects.get(user=user)
+  user_profile.direccion = direccion
+  user_profile.telefono = telefono
+  user_profile.save()
 
-def eliminar_usuario(user):
-  u = PerfilUsuario.objects.get(user = user)
+
+def cambio_contraseña(request, password, pass_repeat):
+  if password != pass_repeat:
+    messages.info(request, 'Las contraseñas no coinciden')
+    return
+  
+  request.user.set_password(password)
+  request.user.save()
+  messages.success(request, 'Se ha actualizado la contraseña correctamente')  
+  
+  
+
+
+
+
+def eliminar_usuario(rut):
+  u = User.objects.get(username = rut)
   u.delete()
 

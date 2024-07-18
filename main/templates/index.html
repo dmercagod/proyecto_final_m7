@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+
+{% block header %}
+  <h5 class="text-center header-index mt-5 mb-4"><i class="fa-solid fa-key"></i>&nbsp;| Encuentra <b>casas</b>, <b>departamentos</b> y <b>parecelas</b> en arriendo</h5>
+
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+
+
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../static/img/house-1836070_1920.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../static/img/real-estate-6688945_1920.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../static/img/appartment-building-835817_1920.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../static/img/carousel/house-4516177_1920.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../static/img/carousel/parcela.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <!-- <main>
+    <div class="contenedor-index">
+      <h3 class="text-center my-5">Propiedades Destacadas</h3>
+
+      <div class="row">
+
+        {% for inmueble in inmuebles %}
+          {% if forloop.counter <= 4 %}
+            <div class="col-12 col-md-3 d-flex flex-wrap mb-5">
+              <div class="card" style="width: 18rem;">
+                <img src="https://picsum.photos/id/78/200/200" class="card-img-top" alt="...">
+                <div class="card-body">
+
+                  <h5 class="card-title">$ {{inmueble.precio_mensual_arriendo|format_number}}</h5>
+
+                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{inmueble.tipo_de_inmueble | title}} en arriendo</h7>
+
+                  <h5 class="card-title titulo-card-index">{{inmueble.descripcion | title}}</h5>
+
+                  <p class="card-text">{{inmueble.direccion | title}}</p>
+
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %} 
+
+
+      </div>
+
+      <h3 class="text-center my-5">Estamos en</h3>
+
+      <div class="row">
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+          <a href="#" class="card-link">
+            <div class="card text-bg-dark card-ciudades">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Valpara%C3%ADso_port_%2839369228394%29.jpg" class="card-img" alt="imagen valparaiso">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h5 class="card-title">Valparaíso</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+          <a href="#" class="card-link">
+            <div class="card text-bg-dark card-ciudades">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/J28_293_%C2%BBSanhattan%C2%AB.jpg/1920px-J28_293_%C2%BBSanhattan%C2%AB.jpg" class="card-img" alt="imagen santiago">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h5 class="card-title">Santiago</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+          <a href="#" class="card-link">
+            <div class="card text-bg-dark card-ciudades">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Panor%C3%A1mica_de_Antofagasta_2018.jpg" class="card-img" alt="imagen antofagasta">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h5 class="card-title">Antofagasta</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+          <a href="#" class="card-link">
+            <div class="card text-bg-dark card-ciudades">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/036-365_-_Palafitos_de_Castro_%2812567869663%29_-_cropped.jpg/1920px-036-365_-_Palafitos_de_Castro_%2812567869663%29_-_cropped.jpg" class="card-img" alt="...">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h5 class="card-title">Los Lagos</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+          <a href="#" class="card-link">
+            <div class="card text-bg-dark card-ciudades">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/ValledeCopiapo.jpg/1280px-ValledeCopiapo.jpg" class="card-img" alt="...">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h5 class="card-title">Atacama</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+          <a href="#" class="card-link">
+            <div class="card text-bg-dark card-ciudades">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/.00_3210_Puerto_Chacabuco_-_Chile.jpg/1920px-.00_3210_Puerto_Chacabuco_-_Chile.jpg" class="card-img" alt="...">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h5 class="card-title">Aysén</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+          <a href="#" class="card-link">
+            <div class="card text-bg-dark card-ciudades">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/PUQ_Cerro_la_Cruz.jpg/1280px-PUQ_Cerro_la_Cruz.jpg" class="card-img" alt="...">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h5 class="card-title">Magallanes</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-3 d-flex justify-content-center">
+          <a href="#" class="card-link">
+            <div class="card text-bg-dark card-ciudades">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Parral%2C_Chile_-_volcano_Longav%C3%AD.JPG" class="card-img" alt="...">
+              <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <h5 class="card-title">Maule</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+ -->
+
+  </main>
+{% endblock %}
+

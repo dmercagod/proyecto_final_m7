@@ -1,0 +1,11 @@
+username;first_name;last_name;email;password;password_confirm;direccion
+12345678-9;Finn;Mertens;fmertens@mail.com;1234;1234;Calle Aventura 1
+23456789-0;Jake;Perro;jperro@mail.com;1234;1234;Calle Dulce 2
+34567890-1;Princesa;Chicle;pchicle@mail.com;1234;1234;Calle Chicle 3
+45678901-2;Marceline;Abadeer;mabadeer@mail.com;1234;1234;Calle Vampiro 4
+56789012-3;Rey;Helado;rhelado@mail.com;1234;1234;Calle Hielo 5
+67890123-4;BMO;BMO;bbmo@mail.com;1234;1234;Calle Consola 6
+78901234-5;Princesa;Flama;pflama@mail.com;1234;1234;Calle Fuego 7
+89012345-6;Limonagrio;Limonagrio;llimonagrio@mail.com;1234;1234;Calle Limón 8
+90123456-7;Billy;Billy;bbilly@mail.com;1234;1234;Calle Heroe 9
+01234567-8;Reina;Tierra;rtierra@mail.com;1234;1234;Calle Tierra 10

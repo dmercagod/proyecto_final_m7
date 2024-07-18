@@ -8,9 +8,9 @@ class Command(BaseCommand):
     reader = csv.reader(archivo, delimiter=';')
     next(reader)
     next(reader)
-    nombres_regiones = []
+    nombres_comunas = []
     for fila in reader:
-      if fila[2] not in nombres_regiones:
+      if fila[2] not in nombres_comunas:
         #! Si no tenemos el nombre de la region en la lista la agregamos a la base de datos y ademas guardamos su nombre.
         Comuna.objects.create(nombre=fila[0], cod=fila[1], region_id=fila[3])
 

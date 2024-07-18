@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="contenedor-login">
+      <h3 class="text-center my-5">Iniciar Sesión</h3>
+    <div class="formulario my-5">
+      <form class="form-login" action="{% url 'login' %}" method="post">
+        
+        {% csrf_token %}
+        
+        <div class="mt-5">
+          <label for="exampleInputName" class="form-label">Rut</label>
+          <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Rut" name="username">
+        </div>
+
+        <div class="my-3">
+          <label for="exampleInputEmail" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Contraseña" name="password">
+        </div>
+
+
+        {% for error in errores %}
+          <span class="badge text-bg-danger">{{error}}</span>
+        {% endfor %}
+        <div class="d-grid gap-2 d-md-flex justify-content-end">
+          <button type="submit" class="btn btn-info px-4 py-2 ">Enviar</button>
+        </div>
+
+        <p class="text-center mt-5">Si no tienes cuenta &nbsp;<a href="/registro">Crea una aquí.</a></p>
+      </form>
+  </div>
+    <!-- <form id="form_cliente" action="/contacto/" method="post">
+      {% csrf_token %}
+      {{form}}
+      <div class="d-grid gap-2 d-md-flex justify-content-end">
+        <button type="submit" class="btn btn-info text-light px-4 py-2 mt-3">Enviar</button>
+      </div>
+    </form>
+  </div> -->
+
+
+{% endblock %}

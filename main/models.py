@@ -10,6 +10,9 @@ class PerfilUsuario(models.Model):
   direccion = models.CharField(max_length=255, null= False)
   telefono = models.CharField(max_length=9, null=True)
 
+  def __str__(self) -> str:
+    return f'{self.user.first_name} {self.user.last_name}'
+
 #! Esto ya lo tiene el "User"
   # nombre = models.CharField(max_length= 50, null=False)
   # apellido = models.CharField(max_length= 50, null=False)
@@ -21,15 +24,23 @@ class PerfilUsuario(models.Model):
   # tipo_usuario = models.CharField(max_length=12, choices=tipos_usuario)
 
 
+
+
 class Region(models.Model):
   cod = models.CharField(max_length=2, primary_key=True)
   nombre = models.CharField(max_length=255)
+
+  def __str__(self) -> str:
+    return f'{self.nombre} ({self.cod})'
 
 
 class Comuna(models.Model):
   cod = models.CharField(max_length=5, primary_key=True)
   nombre = models.CharField(max_length=255)
   region = models.ForeignKey(Region, on_delete=models.RESTRICT, related_name='comunas')
+
+  def __str__(self) -> str:
+    return f'{self.nombre} ({self.cod})'
   
 class Inmueble(models.Model):
   nombre = models.CharField(max_length=50)
@@ -49,6 +60,9 @@ class Inmueble(models.Model):
   #! Llaves foraneas
   comuna = models.ForeignKey(Comuna, related_name='inmuebles', on_delete=models.RESTRICT)
   propietario = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='inmuebles')
+
+  def __str__(self) -> str:
+    return f'Nombre: {self.nombre} | Tipo: {self.tipo_de_inmueble}'
 
 class Solicitud(models.Model):
   inmueble = models.ForeignKey(Inmueble, on_delete=models.CASCADE, related_name='solicitudes')
