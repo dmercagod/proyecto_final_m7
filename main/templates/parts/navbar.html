@@ -11,15 +11,28 @@
         <li class="nav-item">
           <a class="nav-link enlace-nav" aria-current="page" href="/">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link enlace-nav" href="#">Arrendar</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle boton-arrendar" href="/inmuebles/todas/" role="button" data-bs-toggle="dropdown" aria-expanded="false">Arrendar</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/inmuebles/casa/">Casas</a></li>
+            <li><a class="dropdown-item" href="/inmuebles/departamento/">Departametos</a></li>
+            <li><a class="dropdown-item" href="/inmuebles/parcela/">Parcelas</a></li>
+            <li><a class="dropdown-item" href="/inmuebles/todas/">Todas</a></li>
+
+            <!-- <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Parcelas</a></li> -->
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link enlace-nav" href="#">Publicar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link enlace-nav" href="/accounts/profile">Perfil</a>
-        </li>
+        {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link enlace-nav" href="{% url 'publicar-inmueble' %}">Publicar</a>
+          </li>
+        {% endif %}
+        {% if is_authenticated or user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link enlace-nav" href="/accounts/profile">Perfil</a>
+          </li>
+        {% endif %}
 
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

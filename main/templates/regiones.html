@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+
+{% block content %}
+<main>
+  <div class="contenedor-index">
+
+    <!-- VALPARAISO -->
+
+      <h3 class="text-center my-5">Inmuebles en Arriendo</h3>
+      <p>Filtro</p>
+
+      <div class="row">
+
+        {% for inmueble in inmuebles %}
+          <div class="col-12 col-md-3 d-flex flex-wrap mb-5">
+            <div class="card" style="width: 18rem;">
+              <img src="https://picsum.photos/id/78/200/200" class="card-img-top" alt="...">
+              <div class="card-body">
+  
+                <h5 class="card-title">$ {{inmueble.precio_mensual_arriendo|format_number}}</h5>
+  
+                <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{inmueble.tipo_de_inmueble | title}} en arriendo</h7>
+  
+                <h5 class="card-title titulo-card-index">{{inmueble.descripcion | title}}</h5>
+  
+                <p class="card-text">{{inmueble.direccion | title}}</p>
+  
+              </div>
+            </div>
+          </div>            
+        {% endfor %}
+
+      </div>
+
+
+    <!-- FIN VALPARAISO -->
+
+    
+    
+
+  </div>
+</main>
+{% endblock %}
+

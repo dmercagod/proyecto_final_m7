@@ -8,10 +8,13 @@ class PerfilUsuario(models.Model):
   # User:  username(rut), email, fist_name, last_name, password
   user = models.OneToOneField(User, related_name='perfil_usuario', on_delete=models.CASCADE)
   direccion = models.CharField(max_length=255, null= False)
-  telefono = models.CharField(max_length=9, null=True)
+  telefono = models.CharField(max_length=9, null=True, blank=True)
+
+  roles = (('arrendador', 'Arrendador'), ('arrendatario', 'Arrendatario'), ('admin', 'Admin'))
+  rol = models.CharField(max_length=255, choices=roles, default='arrendatario')
 
   def __str__(self) -> str:
-    return f'{self.user.first_name} {self.user.last_name}'
+    return f'{self.user.first_name} {self.user.last_name} ({self.id}) | {self.rol}'
 
 #! Esto ya lo tiene el "User"
   # nombre = models.CharField(max_length= 50, null=False)
@@ -52,7 +55,7 @@ class Inmueble(models.Model):
   baños = models.IntegerField(validators=[MinValueValidator(0)], default=0)
   direccion = models.CharField(max_length=255)
 
-  tipos_inmueble = (('casa', 'Casa'), ('departamento', 'Deparatamento'), ('parcela', 'Parcela'))
+  tipos_inmueble = (('casa', 'Casa'), ('departamento', 'Departamento'), ('parcela', 'Parcela'))
   tipo_de_inmueble = models.CharField(max_length=255, choices=tipos_inmueble)
 
   precio_mensual_arriendo = models.IntegerField(validators=[MinValueValidator(1000)], null=True)

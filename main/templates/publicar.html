@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="contenedor-publicar">
+  <h3 class="text-center perfil-publicar mb-5">Publica tu inmueble</h3>
+
+  <form action="/crear-inmuebles/" method="post">
+    {% csrf_token %}
+    <div class="row mb-4 mt-5">
+      <div class="col-12 col-md-4">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input 
+          type="text" 
+          class="form-control"
+          name="nombre"
+          id="nombre"
+          placeholder="ej. 'Palacio Helado'"
+          required
+          >
+
+      </div>
+      <div class="col-12 col-md-4">
+        <label for="descripcion" class="form-label">Descripcion</label>
+        <textarea 
+          type="text" 
+          class="form-control"
+          name="descripcion"
+          id="descripcion"
+          placeholder="ej. 'Palacio hecho de hielo'"
+          rows="1"
+          required
+          ></textarea>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label for="precio_mensual_arriendo" class="form-label">Precio Mensual Arriendo</label>
+        <input 
+
+          type="number" 
+          class="form-control"
+          name="precio_mensual_arriendo"
+          id="precio_mensual_arriendo"
+          placeholder="Precio Mensual Arriendo"
+          min="50000"
+          required
+
+          >
+      </div>
+
+
+    </div>
+
+
+    
+    <div class="row mb-4 mt-5">
+
+      <div class="col-12 col-md-4">
+        <label for="m2_construidos" class="form-label">m² Construidos</label>
+        <input 
+          type="number" 
+          class="form-control"
+          name="m2_construidos"
+          id="m2_construidos"
+          placeholder="m² Construidos"
+          min="1"
+          required
+          >
+      </div>
+      
+      <div class="col-12 col-md-4">
+        <label for="m2_totales" class="form-label">m² Totales</label>
+        <input 
+          type="number" 
+          class="form-control"
+          name="m2_totales"
+          id="m2_totales"
+          placeholder="m² Totales"
+          min="1"
+          required
+          >
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label for="habitaciones" class="form-label">Habitaciones</label>
+        <input 
+          type="number" 
+          class="form-control"
+          name="habitaciones"
+          id="habitaciones"
+          placeholder="Habitaciones"
+          min="1"
+          required
+          >
+      </div>
+
+    </div>
+
+    <div class="row mb-4 mt-5">
+
+      <div class="col-12 col-md-4">
+        <label for="baños" class="form-label">Nº Baños</label>
+        <input 
+          type="number" 
+          class="form-control"
+          name="baños"
+          id="baños"
+          placeholder="Nº Baños"
+          min="1"
+          required
+          >
+      </div>
+      
+      <div class="col-12 col-md-4">
+        <label for="estacionamientos" class="form-label">Nº Estacionamientos</label>
+        <input 
+          type="number" 
+          class="form-control"
+          name="estacionamientos"
+          id="estacionamientos"
+          placeholder="Nº Estacionamientos"
+          min="1"
+          required
+          >
+      </div>
+
+      <div class="col-12 col-md-4 prueba">
+        <label for="tipo_de_inmueble" class="form-label">Tipo de Inmueble</label>
+        <div class=" d-flex justify-content-start align-items-center">
+          <select 
+          type="text" 
+          class="form-select"
+          name="tipo_de_inmueble" 
+          id="tipo_de_inmueble"
+          required>
+            <option selected>Selecciona tipo de Inmueble</option>
+            {% for tipo in tipos_inmueble %}
+              <option value="{{tipo.0}}">{{tipo.1}}</option>
+            {% endfor %}
+            <!-- <option value="casa">Casa</option>
+            <option value="departamento">Departamento</option>
+            <option value="Parcela">Parcela</option> -->
+          </select>
+        </div>
+      </div>
+
+
+
+    </div>
+    
+    <div class="row mb-4 mt-5">
+
+      <div class="col-12 col-md-4 prueba">
+        <label for="tipo_de_inmueble" class="form-label">Region</label>
+        <div class=" d-flex justify-content-start align-items-center">
+          <select 
+          type="text" 
+          class="form-select"
+          name="region_cod" 
+          id="region_cod"
+          required>
+            <option selected>Selecciona Region</option>
+            {% for region in regiones %}
+              <option value="{{region.cod}}">{{region.nombre}}</option>
+            {% endfor %}
+            <!-- <option value="casa">Casa</option>
+            <option value="departamento">Departamento</option>
+            <option value="Parcela">Parcela</option> -->
+          </select>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 prueba">
+        <label for="tipo_de_inmueble" class="form-label">Comuna</label>
+        <div class=" d-flex justify-content-start align-items-center">
+          <select 
+          type="text" 
+          class="form-select"
+          name="comuna_cod" 
+          id="comuna_cod"
+          required>
+            <option selected>Selecciona Comuna</option>
+            {% for comuna in comunas %}
+              <option value="{{comuna.cod}}">{{comuna.nombre}}</option>
+            {% endfor %}
+            <!-- <option value="casa">Casa</option>
+            <option value="departamento">Departamento</option>
+            <option value="Parcela">Parcela</option> -->
+          </select>
+        </div>
+      </div>
+
+      <!-- <div class="col-12 col-md-4">
+        <label for="comuna_cod" class="form-label">Comuna</label>
+        <input 
+          type="text" 
+          class="form-select"
+          name="comuna_cod"
+          id="comuna_cod"
+          placeholder="Comuna"
+          required
+          >
+      </div> -->
+
+      <div class="col-12 col-md-4">
+        <label for="direccion" class="form-label">Dirección</label>
+        <input 
+          type="text" 
+          class="form-control"
+          name="direccion"
+          id="direccion"
+          placeholder="Dirección"
+          required
+          >
+      </div>
+      
+
+
+      <!-- <div class="col-12 col-md-4">
+        <label for="propietario_rut" class="form-label">Rut Asociado</label>
+        <input 
+          type="text" 
+          class="form-control"
+          name="propietario_rut"
+          id="propietario_rut"
+          placeholder="Rut Asociado"
+          value="{{user.username}}"
+          required
+          >
+      </div> -->
+
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-end mb-5">
+      <button type="submit" class="btn btn-info px-4 py-2 ">Guardar</button>
+    </div>
+
+    
+
+  </form>
+
+
+
+
+  
+
+{% endblock %}
+
+{% block js %}
+<script>
+  function filtrar_comunas () {
+    // Recuperamos el valor seleccionado de la region
+    const cod_seleccionado = $(this).val();
+    console.log(cod_seleccionado)
+    // Ahora iteramos sobre todas las comunas, mostramos solo las que tengan el prefijo de la region seleccionada
+    $('#comuna_cod option').each(function(){
+      console.log($(this).val())
+      const comuna = $(this);
+      const cod_comuna = comuna.val()
+      if (cod_seleccionado == cod_comuna.substring(0,2)) {
+        // Si esto se cumple la comuna es parte de la region
+        comuna.show()
+      
+      } else {
+        comuna.hide()
+      }
+    })
+  }
+
+  $('#region_cod').on('change', filtrar_comunas)
+</script>
+{% endblock %}

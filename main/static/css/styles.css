@@ -7,6 +7,10 @@
   font-size: large;
 }
 
+* {
+  font-family: Open Sans;
+}
+
 /** Navbar **/
 
 .navbar {
@@ -15,7 +19,7 @@
 }
 
 .navbar .enlace-nav{
-  color: #1E375A !important;
+  color:  !important;
   
 }
 
@@ -40,6 +44,8 @@
 
 }
 
+
+
 /** HEADER **/
 
 .header-index {
@@ -48,6 +54,10 @@
   color: #1E375A;
 }
 
+.header-index a{
+  text-decoration: none;
+  color: inherit;
+}
 
 body{
   background: rgb(255,255,255);
@@ -119,15 +129,24 @@ body{
   color: #1E375A;
 }
 
+
+.cards-wraper {
+  display: flex;
+}
+
+.cards-wraper .card{
+  margin: 0 .5rem;
+}
+
 /** LOGIN / REGISTRO**/
-.form-login {
+.form-login, .form-register {
   width: 80%;
   margin: 1rem auto;
   padding: 0.2rem;
   text-align: center;
 }
 
-.form-login label {
+.form-login label, .form-register label {
   display: block;
   text-align: left;
 
@@ -152,28 +171,47 @@ body{
 
 }
 
-.contenedor-login, .contenedor-registro {
+.contenedor-login {
   margin: 0 10rem;
+  margin-top: 10rem !important;
 }
 
+.opcional{
+  font-size: 0.8rem;
+  font-style: italic;
+}
 
 /** PERFIL **/
 
-.contenedor-perfil {
+.contenedor-perfil, .contenedor-registro, .contenedor-login, .contenedor-publicar {
   color: #1E375A;
   font-weight: 100;
   margin: 0 10rem;
   margin-bottom: 10rem;
 }
 
-.perfil-titulo{
+.perfil-titulo, .perfil-publicar{
   margin-top: 10rem;
 }
 
-/** FOOTER **/
-* {
-font-family: Open Sans;
+.alert-info {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+
 }
+
+/** PUBLICAR **/
+.perfil-publicar {
+  margin-bottom: 5rem !important;
+}
+
+/* .prueba .form-select{
+  color: #595C5F !important;
+} */
+
+/** FOOTER **/
+
 
 section {
 width: 100%;
@@ -357,6 +395,11 @@ margin-bottom: 5px;
 .separador-footer {
   border-color: #61738B;
   color: #61738B;
+}
+
+.logo-footer {
+  text-decoration: none;
+
 }
 
 /* If you don't want the footer to be responsive, remove these media queries */

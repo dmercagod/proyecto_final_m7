@@ -44,13 +44,28 @@
       {% include 'parts/navbar.html' %}
     {% endblock %}
 
+    {% if messages %}
+    {% for message in messages %}
+      <div class="row">
+        <div class="col-12 col-md-4 offset-md-8">
+          <div class="alert alert-{{message.tags}} alert-dismissible fade show alerta-login mt-2" role="alert">
+            <div class="saludo-user">
+              <strong>Hola {{user.first_name}} {{user.last_name}}! </strong> {{message}}.
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>        
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %} 
+
     <header>
       {% block header %}
         {% include 'parts/header.html' %}
       {% endblock %}
     </header>
 
-    {% if messages %}
+    <!-- {% if messages %}
       {% for message in messages %}
         <div class="row">
           <div class="col-12 col-md-4 offset-md-8">
@@ -63,7 +78,7 @@
           </div>
         </div>
       {% endfor %}
-    {% endif %}    
+    {% endif %}     -->
 
     <main>
       {% block content %}
@@ -97,7 +112,7 @@
 
   {% block js %}
     <script>
-      setTimeout(function () {$('.fade').fadeOut(1500);},3000);
+      setTimeout(function () {$('.fade').fadeOut(2500);},3000);
     </script>
   {% endblock %}
 

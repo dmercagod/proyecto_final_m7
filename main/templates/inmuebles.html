@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+
+  <main>
+    <div class="contenedor-index">
+
+      <!-- TODAS -->
+      {% if inmuebles %}
+        <h3 class="text-center my-5">Inmuebles en Arriendo</h3>
+        <p>Filtro</p>
+
+        <div class="row">
+
+          {% for inmueble in inmuebles %}
+            <div class="col-12 col-md-3 d-flex flex-wrap mb-5">
+              <div class="card" style="width: 18rem;">
+                <img src="https://picsum.photos/id/78/200/200" class="card-img-top" alt="...">
+                <div class="card-body">
+    
+                  <h5 class="card-title">$ {{inmueble.precio_mensual_arriendo|format_number}}</h5>
+    
+                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{inmueble.tipo_de_inmueble | title}} en arriendo</h7>
+    
+                  <h5 class="card-title titulo-card-index">{{inmueble.descripcion | title}}</h5>
+    
+                  <p class="card-text">{{inmueble.direccion | title}}</p>
+    
+                </div>
+              </div>
+            </div>            
+          {% endfor %}
+
+        </div>
+      {% endif%}      
+
+      <!-- FIN TODAS -->
+
+      <!-- CASAS -->
+
+      {% if casas %}
+        <h3 class="text-center my-5">Casas en Arriendo</h3>
+
+        <div class="row">
+
+          {% for casa in casas %}
+            <div class="col-12 col-md-3 d-flex flex-wrap mb-5">
+              <div class="card" style="width: 18rem;">
+                <img src="https://picsum.photos/id/78/200/200" class="card-img-top" alt="...">
+                <div class="card-body">
+    
+                  <h5 class="card-title">$ {{casa.precio_mensual_arriendo|format_number}}</h5>
+    
+                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{casa.tipo_de_inmueble | title}} en arriendo</h7>
+    
+                  <h5 class="card-title titulo-card-index">{{casa.descripcion | title}}</h5>
+    
+                  <p class="card-text">{{casa.direccion | title}}</p>
+    
+                </div>
+              </div>
+            </div>            
+          {% endfor %}
+
+        </div>
+      {% endif%}
+      
+      <!-- FIN CASAS -->
+
+      <!-- DEPARTAMENTOS -->
+
+      {% if departamentos %}
+        <h3 class="text-center my-5">Departamentos en Arriendo</h3>
+
+        <div class="row">
+
+          {% for departamento in departamentos %}
+            <div class="col-12 col-md-3 d-flex flex-wrap mb-5">
+              <div class="card" style="width: 18rem;">
+                <img src="https://picsum.photos/id/78/200/200" class="card-img-top" alt="...">
+                <div class="card-body">
+    
+                  <h5 class="card-title">$ {{departamento.precio_mensual_arriendo|format_number}}</h5>
+    
+                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{departamento.tipo_de_inmueble | title}} en arriendo</h7>
+    
+                  <h5 class="card-title titulo-card-index">{{departamento.descripcion | title}}</h5>
+    
+                  <p class="card-text">{{departamento.direccion | title}}</p>
+    
+                </div>
+              </div>
+            </div>            
+          {% endfor %}
+
+        </div>
+      {% endif%}
+
+      <!-- FIN DEPARTAMENTOS -->
+
+      <!-- PARCELAS -->
+      {% if parcelas %}
+        <h3 class="text-center my-5">Parcelas en Arriendo</h3>
+
+        <div class="row">
+
+          {% for parcela in parcelas %}
+            <div class="col-12 col-md-3 d-flex flex-wrap mb-5">
+              <div class="card" style="width: 18rem;">
+                <img src="https://picsum.photos/id/78/200/200" class="card-img-top" alt="...">
+                <div class="card-body">
+    
+                  <h5 class="card-title">$ {{parcela.precio_mensual_arriendo|format_number}}</h5>
+    
+                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{parcela.tipo_de_inmueble | title}} en arriendo</h7>
+    
+                  <h5 class="card-title titulo-card-index">{{parcela.descripcion | title}}</h5>
+    
+                  <p class="card-text">{{parcela.direccion | title}}</p>
+    
+                </div>
+              </div>
+            </div>            
+          {% endfor %}
+
+        </div>
+      {% endif%}      
+
+      <!-- FIN PARCELAS -->
+
+      
+
+    </div>
+  </main>
+
+
+{% endblock %}
