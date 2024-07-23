@@ -6,11 +6,14 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto me-5 d-flex gap-4">
+        
         <li class="nav-item">
           <a class="nav-link enlace-nav" aria-current="page" href="/">Inicio</a>
         </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle boton-arrendar" href="/inmuebles/todas/" role="button" data-bs-toggle="dropdown" aria-expanded="false">Arrendar</a>
           <ul class="dropdown-menu">
@@ -23,6 +26,7 @@
             <li><a class="dropdown-item" href="#">Parcelas</a></li> -->
           </ul>
         </li>
+
         {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}
           <li class="nav-item">
             <a class="nav-link enlace-nav" href="{% url 'publicar-inmueble' %}">Publicar</a>
@@ -34,30 +38,38 @@
           </li>
         {% endif %}
 
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li> -->
+
       </ul>
 
-
-      {% if user.is_staff %}
-      <div class="saludo-user">
-        <p>Hola, <br>{{user.username | title}}</p>
-      </div>
-      {% elif user.is_authenticated %}
-      <div class="saludo-user">
-        <p>Hola, <br>{{user.first_name}} {{user.last_name}}</p>
-      </div>
-      
+      {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}
+      <li class="nav-item dropdown" style="list-style: none;">
+        <a class="nav-link dropdown-toggle boton-arrendar" href="/inmuebles/todas/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       {% endif %}
+          {% if user.is_staff %}
+          <div class="saludo-user">
+            <p>Hola, <br>{{user.username | title}}</p>
+          </div>
+          {% elif user.is_authenticated %}
+          <div class="saludo-user">
+            <p>Hola, <br>{{user.first_name}} {{user.last_name}}</p>
+          </div>      
+          {% endif %}
+        {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}          
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/inmueble/ver/">Ver Propiedades</a></li>
+          <li><a class="dropdown-item" href="#">Editar Inmueble</a></li>
+          <li><a class="dropdown-item" href="#">Eliminar Inmueble</a></li>
+        {% endif %}
+
+
+          <!-- <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Parcelas</a></li> -->
+        </ul>
+      </li>
+
+
+
 
       {% if not user.is_authenticated %}
           <a href="/accounts/login" type="button" class="btn btn-outline-success b-isesion">Iniciar Sesión</a>

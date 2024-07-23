@@ -12,7 +12,10 @@ urlpatterns = [
   path('inmuebles/<tipo_de_inmueble>/', inmuebles, name = 'inmuebles'),
   path('regiones/<comuna_id>/', filtro_ciudades, name = 'filtro_ciudades'),
   path('publicar-inmueble/', publicar_inmueble, name = 'publicar-inmueble'),
-  path('crear-inmuebles/', crear_inmuebles, name = 'crear-inmuebles/'),
+  path('crear-inmuebles/', crear_inmuebles, name = 'crear-inmuebles'),
+  # path('inmueble/editar/<id>/', editar_inmueble, name = 'editar-inmueble'),
+  path('inmueble/ver/', ver_inmuebles_creados, name = 'ver-inmuebles'),
+
   
   
   

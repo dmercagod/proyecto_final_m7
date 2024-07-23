@@ -15,13 +15,9 @@
 
 .navbar {
   background-color: transparent;
-  /* background: #EBF3FB !important; */
 }
 
-.navbar .enlace-nav{
-  color:  !important;
-  
-}
+
 
 .navbar .enlace-nav:hover{
   color: #476ea3!important;
@@ -41,9 +37,13 @@
 .saludo-user {
   font-size: 0.9rem;
   margin-top: 0.3rem;
-
+  display: inline-block;
+  
 }
 
+.saludo-user li{
+  list-style: none;
+}
 
 
 /** HEADER **/
@@ -173,7 +173,7 @@ body{
 
 .contenedor-login {
   margin: 0 10rem;
-  margin-top: 10rem !important;
+  margin-top: 8rem !important;
 }
 
 .opcional{

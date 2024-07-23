@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 from main.services import *
 from main.models import *
+from main.forms import *
 
 #! Filtro para que solo pasen los arrendadores
 def solo_arrendadores(user):
@@ -162,8 +163,6 @@ def publicar_inmueble(request):
 @user_passes_test(solo_arrendadores)
 def crear_inmuebles(request):
 
-  
-
   nombre = request.POST['nombre'] 
   descripcion = request.POST['descripcion'] 
   m2_construidos = int(request.POST['m2_construidos'])
@@ -181,6 +180,64 @@ def crear_inmuebles(request):
 
   messages.success(request, "El inmueble se publicó correctamente")
   return redirect('publicar-inmueble')
+
+
+@user_passes_test(solo_arrendadores)
+def editar_inmueble(request, id):
+
+  regiones = Region.objects.all()
+  comunas = Comuna.objects.all()
+
+  if request.method == 'GET':
+    #! 1. Obtengo el inmueble a editar
+    inmueble = Inmueble.objects.get(id=id)
+
+    cod_region = inmueble.comuna.region.cod
+
+
+    #! 3. Creo el 'context' con la info que requiere el template
+    context = {
+      'inmueble':inmueble,
+      'regiones': regiones,
+      'comunas': comunas,
+      'cod_region': cod_region
+    }
+    return render(request, 'editar_inmueble.html', context)
+  # else:
+  #     inmueble = Inmueble.objects.get(id=id)
+  #     current_user = request.user.username
+
+  #     nombre = request.POST['nombre'] 
+  #     descripcion = request.POST['descripcion'] 
+  #     m2_construidos = int(request.POST['m2_construidos'])
+  #     m2_totales = int(request.POST['m2_totales'])
+  #     estacionamientos = int(request.POST['estacionamientos'])
+  #     habitaciones = int(request.POST['habitaciones'])
+  #     baños = int(request.POST['baños'])
+  #     direccion = request.POST['direccion']
+  #     tipo_de_inmueble = request.POST['tipo_de_inmueble']  
+  #     precio_mensual_arriendo = int(request.POST['precio_mensual_arriendo'])
+  #     inmueble_id = inmueble
+  #     comuna_cod = request.POST['comuna_cod']
+  #     propietario_rut = current_user
+          
+  #     editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, inmueble_id, comuna_cod, propietario_rut)
+
+
+
+  #     messages.success(request, "El inmueble se modificó correctamente")
+  #     return render(request, 'editar_inmueble.html', context)
+
+
+
+def ver_inmuebles_creados(request):
+  current_user = request.user
+  inmuebles = Inmueble.objects.filter(propietario_id=current_user.id)
+  context = {
+    'inmuebles':inmuebles
+  }
+
+  return render(request, 'ver_inmuebles_creados.html', context)
 
 
 
