@@ -59,6 +59,7 @@ class Inmueble(models.Model):
   tipo_de_inmueble = models.CharField(max_length=255, choices=tipos_inmueble)
 
   precio_mensual_arriendo = models.IntegerField(validators=[MinValueValidator(1000)], null=True)
+  imagen_ruta = models.CharField(max_length=255, null=True, blank=True)
 
   #! Llaves foraneas
   comuna = models.ForeignKey(Comuna, related_name='inmuebles', on_delete=models.RESTRICT)

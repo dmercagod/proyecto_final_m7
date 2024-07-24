@@ -13,8 +13,9 @@ urlpatterns = [
   path('regiones/<comuna_id>/', filtro_ciudades, name = 'filtro_ciudades'),
   path('publicar-inmueble/', publicar_inmueble, name = 'publicar-inmueble'),
   path('crear-inmuebles/', crear_inmuebles, name = 'crear-inmuebles'),
-  # path('inmueble/editar/<id>/', editar_inmueble, name = 'editar-inmueble'),
+  path('inmueble/editar/<id>/', editar_inmueble_creado, name = 'editar-inmueble'),
   path('inmueble/ver/', ver_inmuebles_creados, name = 'ver-inmuebles'),
+  path('inmueble/eliminar/<id>', eliminar_inmueble_creado, name = 'eliminar-inmueble'),
 
   
   

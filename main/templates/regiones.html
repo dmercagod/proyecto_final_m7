@@ -17,7 +17,7 @@
         {% for inmueble in inmuebles %}
           <div class="col-12 col-md-3 d-flex flex-wrap mb-5">
             <div class="card" style="width: 18rem;">
-              <img src="https://picsum.photos/id/78/200/200" class="card-img-top" alt="...">
+              <img src="{{inmueble.imagen_ruta}}" class="card-img-top" alt="...">
               <div class="card-body">
   
                 <h5 class="card-title">$ {{inmueble.precio_mensual_arriendo|format_number}}</h5>

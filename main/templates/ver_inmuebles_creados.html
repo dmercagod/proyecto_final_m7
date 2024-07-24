@@ -14,9 +14,9 @@
           <div class="row">
 
             {% for inmueble in inmuebles %}
-              <div class="col-12 col-md-3 d-flex mb-5">
+              <div class="col-12 col-md-3 d-flex mb-5 d-flex justify-content-center align-items-center">
                 <div class="card" style="width: 18rem;">
-                  <img src="https://picsum.photos/id/78/200/200" class="card-img-top" alt="foto propiedad">
+                  <img class="imagenes-inmuebles" src="{{inmueble.imagen_ruta}}" class="card-img-top" alt="foto propiedad">
                   <div class="card-body">
 
                     <h5 class="card-title">$ {{inmueble.precio_mensual_arriendo|format_number}}</h5>
@@ -26,13 +26,26 @@
                     <h5 class="card-title titulo-card-index">{{inmueble.descripcion | title}}</h5>
 
                     <p class="card-text">{{inmueble.direccion | title}}</p>
+                    
+                    <!--
+                    <a href="#"><button type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                    <a href="#"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a> -->
 
+                    <a href="{% url 'editar-inmueble' id=inmueble.id %}" type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="#" type="button" class="btn btn-danger" onclick="eliminar(event)">
+                      
+                      <i id="{{inmueble.id}}" class="fa-solid fa-trash"></i></a>
                   </div>
+                  
                 </div>
+
+
               </div>            
             {% endfor %}
 
           </div>
+
+
 
 
     
@@ -46,4 +59,24 @@
   </main>
 
 
+{% endblock %}
+
+{% block js %}
+  <script>
+    function eliminar(event) {
+      // 1. Evitamos que enlace me dirija a otro lado
+      event.preventDefault()
+
+      // 2. Recuperamos el HREF del enlace clickeado
+      const id = event.target.id
+      const url = '/inmueble/eliminar/' + id 
+      // 3. Confirmamos si el usuario desea eliminar
+      const confirmacion = confirm('¿Estás seguro que deseas eliminar?')
+
+      if(confirmacion == true) {
+        // redirijo a la pagina URL construida
+        window.location.href = url
+      } 
+    }
+  </script>
 {% endblock %}

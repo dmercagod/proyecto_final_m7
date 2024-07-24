@@ -47,9 +47,29 @@ def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamie
     comuna = comuna,
     propietario = propietario)
 
+# def editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, inmueble_id, cod_comuna, rut):
+#   inmueble = Inmueble.objects.get(id=inmueble_id)
+#   comuna = Comuna.objects.get(nombre=cod_comuna)
+#   propietario = User.objects.get(username=rut)
+
+#   inmueble.nombre = nombre
+#   inmueble.descripcion = descripcion
+#   inmueble.m2_construidos = m2_construidos
+#   inmueble.m2_totales = m2_totales
+#   inmueble.estacionamientos = estacionamientos
+#   inmueble.habitaciones = habitaciones
+#   inmueble.baños = baños
+#   inmueble.direccion = direccion
+#   inmueble.tipo_de_inmueble = tipo_de_inmueble
+#   inmueble.precio_mensual_arriendo = precio_mensual_arriendo
+#   inmueble.comuna = comuna
+#   inmueble.propietario = propietario
+#   inmueble.save()
+
+
 def editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, inmueble_id, cod_comuna, rut):
   inmueble = Inmueble.objects.get(id=inmueble_id)
-  comuna = Comuna.objects.get(nombre=cod_comuna)
+  comuna = Comuna.objects.get(cod=cod_comuna)
   propietario = User.objects.get(username=rut)
 
   inmueble.nombre = nombre
@@ -66,28 +86,11 @@ def editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionami
   inmueble.propietario = propietario
   inmueble.save()
 
-# def editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, inmueble_id, cod_comuna, rut):
-#   inmueble = Inmueble.objects.get(id=inmueble_id)
-
-#   inmueble.nombre = nombre
-#   inmueble.descripcion = descripcion
-#   inmueble.m2_construidos = m2_construidos
-#   inmueble.m2_totales = m2_totales
-#   inmueble.estacionamientos = estacionamientos
-#   inmueble.habitaciones = habitaciones
-#   inmueble.baños = baños
-#   inmueble.direccion = direccion
-#   inmueble.tipo_de_inmueble = tipo_de_inmueble
-#   inmueble.precio_mensual_arriendo = precio_mensual_arriendo
-#   inmueble.comuna = cod_comuna
-#   inmueble.propietario = rut
-#   inmueble.save()
 
 
 
 def eliminar_inmueble(inmueble_id):
-  i = Inmueble.objects.get(id = inmueble_id)
-  i.delete()
+  i = Inmueble.objects.get(id=inmueble_id).delete()
 
 
 

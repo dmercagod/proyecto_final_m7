@@ -182,8 +182,10 @@ def crear_inmuebles(request):
   return redirect('publicar-inmueble')
 
 
+
+
 @user_passes_test(solo_arrendadores)
-def editar_inmueble(request, id):
+def editar_inmueble_creado(request, id):
 
   regiones = Region.objects.all()
   comunas = Comuna.objects.all()
@@ -192,7 +194,7 @@ def editar_inmueble(request, id):
     #! 1. Obtengo el inmueble a editar
     inmueble = Inmueble.objects.get(id=id)
 
-    cod_region = inmueble.comuna.region.cod
+    cod_region = inmueble.comuna_id[0:2]
 
 
     #! 3. Creo el 'context' con la info que requiere el template
@@ -203,42 +205,76 @@ def editar_inmueble(request, id):
       'cod_region': cod_region
     }
     return render(request, 'editar_inmueble.html', context)
-  # else:
-  #     inmueble = Inmueble.objects.get(id=id)
-  #     current_user = request.user.username
+  else:
+      rut = request.user.username
 
-  #     nombre = request.POST['nombre'] 
-  #     descripcion = request.POST['descripcion'] 
-  #     m2_construidos = int(request.POST['m2_construidos'])
-  #     m2_totales = int(request.POST['m2_totales'])
-  #     estacionamientos = int(request.POST['estacionamientos'])
-  #     habitaciones = int(request.POST['habitaciones'])
-  #     baños = int(request.POST['baños'])
-  #     direccion = request.POST['direccion']
-  #     tipo_de_inmueble = request.POST['tipo_de_inmueble']  
-  #     precio_mensual_arriendo = int(request.POST['precio_mensual_arriendo'])
-  #     inmueble_id = inmueble
-  #     comuna_cod = request.POST['comuna_cod']
-  #     propietario_rut = current_user
+      nombre = request.POST['nombre'] 
+      descripcion = request.POST['descripcion'] 
+      m2_construidos = int(request.POST['m2_construidos'])
+      m2_totales = int(request.POST['m2_totales'])
+      estacionamientos = int(request.POST['estacionamientos'])
+      habitaciones = int(request.POST['habitaciones'])
+      baños = int(request.POST['baños'])
+      direccion = request.POST['direccion']
+      tipo_de_inmueble = request.POST['tipo_de_inmueble']  
+      precio_mensual_arriendo = int(request.POST['precio_mensual_arriendo'])
+      inmueble_id = id
+      cod_comuna = request.POST['comuna_cod']
+      rut = rut
           
-  #     editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, inmueble_id, comuna_cod, propietario_rut)
+      editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, inmueble_id, cod_comuna, rut)
 
 
 
-  #     messages.success(request, "El inmueble se modificó correctamente")
-  #     return render(request, 'editar_inmueble.html', context)
+      messages.success(request, "El inmueble se modificó correctamente")
+      return redirect(request, 'editar_inmueble.html', context)
 
 
 
+
+
+# def ver_inmuebles_creados(request):
+#   current_user = request.user
+#   inmuebles = Inmueble.objects.filter(propietario_id=current_user.id)
+
+#   context = {
+#     'inmuebles':inmuebles
+#   }
+
+#   return render(request, 'ver_inmuebles_creados.html', context)
+
+@user_passes_test(solo_arrendadores)
+def eliminar_inmueble_creado(request, id):
+    print('eliminando ' + id)
+
+    eliminar_inmueble(id)
+    messages.success(request, "El inmueble se eliminó correctamente")
+    return redirect('/inmueble/ver/')
+
+
+
+
+
+
+
+
+
+@user_passes_test(solo_arrendadores)
 def ver_inmuebles_creados(request):
   current_user = request.user
-  inmuebles = Inmueble.objects.filter(propietario_id=current_user.id)
+  inmuebles = None
+
+  if current_user.perfil_usuario.rol == 'arrendador':
+    inmuebles = current_user.inmuebles.all()
+  elif current_user.perfil_usuario.rol == 'arrendatario':
+    pass
+
+  
   context = {
     'inmuebles':inmuebles
   }
 
   return render(request, 'ver_inmuebles_creados.html', context)
-
 
 
 def filtro_ciudades(request, nombre):

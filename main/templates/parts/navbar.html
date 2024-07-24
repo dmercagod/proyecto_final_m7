@@ -42,7 +42,7 @@
       </ul>
 
       {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}
-      <li class="nav-item dropdown" style="list-style: none;">
+      <li class="nav-item dropdown saludo-usuario" style="list-style: none;">
         <a class="nav-link dropdown-toggle boton-arrendar" href="/inmuebles/todas/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       {% endif %}
           {% if user.is_staff %}
@@ -58,13 +58,9 @@
         </a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/inmueble/ver/">Ver Propiedades</a></li>
-          <li><a class="dropdown-item" href="#">Editar Inmueble</a></li>
-          <li><a class="dropdown-item" href="#">Eliminar Inmueble</a></li>
+
         {% endif %}
 
-
-          <!-- <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Parcelas</a></li> -->
         </ul>
       </li>
 

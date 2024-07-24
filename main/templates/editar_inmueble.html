@@ -170,7 +170,7 @@
           required>
             <option selected>Selecciona Region</option>
             {% for region in regiones %}
-              <option value="{{region.cod}}" {% if region.cod == inmueble.comuna.region.cod %}selected{% endif %}>{{region.nombre}}</option>
+              <option value="{{region.cod}}" {% if region.cod == comuna_region %}selected{% endif %}>{{region.nombre}}</option>
             {% endfor %}
             <!-- <option value="casa">Casa</option>
             <option value="departamento">Departamento</option>
