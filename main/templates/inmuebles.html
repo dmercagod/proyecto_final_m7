@@ -7,14 +7,98 @@
   <main>
     <div class="contenedor-index">
 
+      <form action="/inmuebles/" method="get">
+        {% csrf_token %}
+        <div class="row mb-4 mt-5">
+
+          <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <label for="region_cod" class="form-label">Region</label>
+            <div class=" d-flex justify-content-start align-items-center">
+              <select 
+              type="text" 
+              class="form-select"
+              name="region_cod" 
+              id="region_cod"
+              >
+                <option value="">Selecciona Region</option>
+                {% for region in regiones %}
+                  <option value="{{region.cod}}">{{region.nombre}}</option>
+                {% endfor %}
+
+              </select>
+            </div>
+          </div>
+    
+          <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <label for="comuna_cod" class="form-label">Comuna</label>
+            <div class=" d-flex justify-content-start align-items-center">
+              <select 
+              type="text" 
+              class="form-select"
+              name="comuna_cod" 
+              id="comuna_cod"
+              >
+                <option value="">Selecciona Comuna</option>
+                {% for comuna in comunas %}
+                  <option value="{{comuna.cod}}">{{comuna.nombre}}</option>
+                {% endfor %}
+
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <label for="tipo_de_inmueble" class="form-label">Tipo de Inmueble</label>
+            <div class=" d-flex justify-content-start align-items-center">
+              <select 
+              type="text" 
+              class="form-select"
+              name="tipo_de_inmueble" 
+              id="tipo_de_inmueble"
+              >
+                <option value = "">Selecciona tipo de Inmueble</option>
+                {% for tipo in tipos_inmueble %}
+                  <option value="{{tipo.0}}">{{tipo.1}}</option>
+                {% endfor %}
+
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <label for="palabra" class="form-label">Palabra</label>
+            <input 
+              type="text" 
+              class="form-control"
+              name="palabra"
+              id="palabra"
+              placeholder="ej. 'Bosque'"
+              
+              >
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center justify-content-end ms-auto">
+            <button type="submit" class="btn btn-info px-4 py-2 ">Filtrar</button>
+          </div>
+      
+
+        </div>
+      
+        <!-- <div class="d-grid gap-2 d-md-flex justify-content-end">
+          <button type="submit" class="btn btn-info px-4 py-2 ">Guardar</button>
+        </div> -->
+
+    
+      </form>
+
       <!-- TODAS -->
-      {% if inmuebles %}
+
         <h3 class="text-center my-5">Inmuebles en Arriendo</h3>
 
         <div class="row">
 
           {% for inmueble in inmuebles %}
-            <div class="col-12 col-md-3 d-flex flex-wrap mb-5">
+            <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center mb-5">
               <div class="card" style="width: 18rem;">
                 <img class="imagenes-inmuebles" src="{{inmueble.imagen_ruta}}" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -33,101 +117,11 @@
           {% endfor %}
 
         </div>
-      {% endif%}      
+      
 
       <!-- FIN TODAS -->
 
-      <!-- CASAS -->
-
-      {% if casas %}
-        <h3 class="text-center my-5">Casas en Arriendo</h3>
-
-        <div class="row">
-
-          {% for casa in casas %}
-            <div class="col-12 col-md-3 d-flex justify-content-center align-items-center mb-5">
-              <div class="card" style="width: 18rem;">
-                <img class="imagenes-inmuebles" src="{{casa.imagen_ruta}}" class="card-img-top" alt="...">
-                <div class="card-body">
-    
-                  <h5 class="card-title">$ {{casa.precio_mensual_arriendo|format_number}}</h5>
-    
-                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{casa.tipo_de_inmueble | title}} en arriendo</h7>
-    
-                  <h5 class="card-title titulo-card-index">{{casa.descripcion | title}}</h5>
-    
-                  <p class="card-text">{{casa.direccion | title}}</p>
-    
-                </div>
-              </div>
-            </div>            
-          {% endfor %}
-
-        </div>
-      {% endif%}
       
-      <!-- FIN CASAS -->
-
-      <!-- DEPARTAMENTOS -->
-
-      {% if departamentos %}
-        <h3 class="text-center my-5">Departamentos en Arriendo</h3>
-
-        <div class="row">
-
-          {% for departamento in departamentos %}
-            <div class="col-12 col-md-3 d-flex justify-content-center align-items-center mb-5">
-              <div class="card" style="width: 18rem;">
-                <img class="imagenes-inmuebles" src="{{departamento.imagen_ruta}}" class="card-img-top" alt="...">
-                <div class="card-body">
-    
-                  <h5 class="card-title">$ {{departamento.precio_mensual_arriendo|format_number}}</h5>
-    
-                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{departamento.tipo_de_inmueble | title}} en arriendo</h7>
-    
-                  <h5 class="card-title titulo-card-index">{{departamento.descripcion | title}}</h5>
-    
-                  <p class="card-text">{{departamento.direccion | title}}</p>
-    
-                </div>
-              </div>
-            </div>            
-          {% endfor %}
-
-        </div>
-      {% endif%}
-
-      <!-- FIN DEPARTAMENTOS -->
-
-      <!-- PARCELAS -->
-      {% if parcelas %}
-        <h3 class="text-center my-5">Parcelas en Arriendo</h3>
-
-        <div class="row">
-
-          {% for parcela in parcelas %}
-            <div class="col-12 col-md-3 mb-5 d-flex justify-content-center align-items-center">
-              <div class="card" style="width: 18rem;">
-                <img class="imagenes-inmuebles" style="height: 200px;" src="{{parcela.imagen_ruta}}" class="card-img-top" alt="...">
-                <div class="card-body">
-    
-                  <h5 class="card-title">$ {{parcela.precio_mensual_arriendo|format_number}}</h5>
-    
-                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{parcela.tipo_de_inmueble | title}} en arriendo</h7>
-    
-                  <h5 class="card-title titulo-card-index">{{parcela.descripcion | title}}</h5>
-    
-                  <p class="card-text">{{parcela.direccion | title}}</p>
-    
-                </div>
-              </div>
-            </div>            
-          {% endfor %}
-
-        </div>
-      {% endif%}      
-
-      <!-- FIN PARCELAS -->
 
       
 
@@ -135,4 +129,31 @@
   </main>
 
 
+{% endblock %}
+
+
+{% block js %}
+  <script>
+    function filtrar_comunas () {
+      // Recuperamos el valor seleccionado de la region
+      const cod_seleccionado = $(this).val();
+        $("#comuna_cod").val("")
+      // Ahora iteramos sobre todas las comunas, mostramos solo las que tengan el prefijo de la region seleccionada
+      $('#comuna_cod option').each(function(){
+
+        const comuna = $(this);
+        const cod_comuna = comuna.val()
+
+        if (cod_seleccionado == cod_comuna.substring(0,2)) {        
+          // Si esto se cumple la comuna es parte de la region
+          comuna.show()
+        
+        } else {
+          comuna.hide()
+        }
+      })
+    }
+
+    $('#region_cod').on('change', filtrar_comunas)
+  </script>
 {% endblock %}

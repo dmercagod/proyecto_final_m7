@@ -8,43 +8,22 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto me-5 d-flex gap-4">
+      <ul class="navbar-nav ms-auto d-flex gap-4 align-items-center justify-content-start">
         
         <li class="nav-item">
           <a class="nav-link enlace-nav" aria-current="page" href="/">Inicio</a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle boton-arrendar" href="/inmuebles/todas/" role="button" data-bs-toggle="dropdown" aria-expanded="false">Arrendar</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/inmuebles/casa/">Casas</a></li>
-            <li><a class="dropdown-item" href="/inmuebles/departamento/">Departametos</a></li>
-            <li><a class="dropdown-item" href="/inmuebles/parcela/">Parcelas</a></li>
-            <li><a class="dropdown-item" href="/inmuebles/todas/">Todas</a></li>
-
-            <!-- <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Parcelas</a></li> -->
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link enlace-nav" aria-current="page" href="{% url 'inmuebles' %}">Inmuebles</a>
         </li>
 
-        {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}
-          <li class="nav-item">
-            <a class="nav-link enlace-nav" href="{% url 'publicar-inmueble' %}">Publicar</a>
-          </li>
-        {% endif %}
-        {% if is_authenticated or user.is_staff %}
-          <li class="nav-item">
-            <a class="nav-link enlace-nav" href="/accounts/profile">Perfil</a>
-          </li>
-        {% endif %}
 
 
-      </ul>
 
-      {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}
       <li class="nav-item dropdown saludo-usuario" style="list-style: none;">
-        <a class="nav-link dropdown-toggle boton-arrendar" href="/inmuebles/todas/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      {% endif %}
+        <a class="nav-link dropdown-toggle boton-arrendar" href="/inmuebles/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
           {% if user.is_staff %}
           <div class="saludo-user">
             <p>Hola, <br>{{user.username | title}}</p>
@@ -54,26 +33,31 @@
             <p>Hola, <br>{{user.first_name}} {{user.last_name}}</p>
           </div>      
           {% endif %}
-        {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}          
+        
         </a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu mb-3">
+          {% if user.is_authenticated or user.is_staff %}
+          <li><a class="dropdown-item" href="/accounts/profile/">Perfil</a></li>
+          {% endif %}
+          {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}
+          <li><a class="dropdown-item" href="{% url 'publicar-inmueble' %}">Publicar</a></li>
           <li><a class="dropdown-item" href="/inmueble/ver/">Ver Propiedades</a></li>
-
-        {% endif %}
-
+          {% endif %}
         </ul>
-      </li>
+      </li>      
 
 
+      </ul>
 
+      
 
       {% if not user.is_authenticated %}
-          <a href="/accounts/login" type="button" class="btn btn-outline-success b-isesion">Iniciar Sesión</a>
+          <a href="/accounts/login" type="button" class="btn btn-outline-success b-isesion ms-4">Iniciar Sesión</a>
           
       {% elif user.is_authenticated %}
         <form class="d-flex" role="search" method="post" action="{% url 'logout' %}">
           {% csrf_token %}
-          <button type="submit" class="btn btn-outline-success b-isesion">Cerrar Sesión</button>
+          <button type="submit" class="btn btn-outline-success b-isesion ms-4">Cerrar Sesión</button>
         </form>
       {% endif %}
     </div>

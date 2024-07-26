@@ -7,8 +7,10 @@
 
   <form action="/crear-inmuebles/" method="post">
     {% csrf_token %}
+
     <div class="row mb-4 mt-5">
-      <div class="col-12 col-md-4">
+
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="nombre" class="form-label">Nombre</label>
         <input 
           type="text" 
@@ -20,7 +22,7 @@
           >
 
       </div>
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="descripcion" class="form-label">Descripcion</label>
         <textarea 
           type="text" 
@@ -33,8 +35,8 @@
           ></textarea>
       </div>
 
-      <div class="col-12 col-md-4">
-        <label for="precio_mensual_arriendo" class="form-label">Precio Mensual Arriendo</label>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <label for="precio_mensual_arriendo" class="form-label">Precio Mensual </label>
         <input 
 
           type="number" 
@@ -49,13 +51,13 @@
       </div>
 
 
-    </div>
+    
 
 
     
-    <div class="row mb-4 mt-5">
 
-      <div class="col-12 col-md-4">
+
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="m2_construidos" class="form-label">m² Construidos</label>
         <input 
           type="number" 
@@ -68,7 +70,7 @@
           >
       </div>
       
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="m2_totales" class="form-label">m² Totales</label>
         <input 
           type="number" 
@@ -81,7 +83,7 @@
           >
       </div>
 
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="habitaciones" class="form-label">Habitaciones</label>
         <input 
           type="number" 
@@ -94,11 +96,11 @@
           >
       </div>
 
-    </div>
 
-    <div class="row mb-4 mt-5">
 
-      <div class="col-12 col-md-4">
+
+
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="baños" class="form-label">Nº Baños</label>
         <input 
           type="number" 
@@ -111,7 +113,7 @@
           >
       </div>
       
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="estacionamientos" class="form-label">Nº Estacionamientos</label>
         <input 
           type="number" 
@@ -124,7 +126,7 @@
           >
       </div>
 
-      <div class="col-12 col-md-4 prueba">
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="tipo_de_inmueble" class="form-label">Tipo de Inmueble</label>
         <div class=" d-flex justify-content-start align-items-center">
           <select 
@@ -146,12 +148,12 @@
 
 
 
-    </div>
-    
-    <div class="row mb-4 mt-5">
 
-      <div class="col-12 col-md-4 prueba">
-        <label for="tipo_de_inmueble" class="form-label">Region</label>
+    
+
+
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <label for="region_cod" class="form-label">Region</label>
         <div class=" d-flex justify-content-start align-items-center">
           <select 
           type="text" 
@@ -159,7 +161,7 @@
           name="region_cod" 
           id="region_cod"
           required>
-            <option selected>Selecciona Region</option>
+            <option value="">Selecciona Region</option>
             {% for region in regiones %}
               <option value="{{region.cod}}">{{region.nombre}}</option>
             {% endfor %}
@@ -170,8 +172,8 @@
         </div>
       </div>
 
-      <div class="col-12 col-md-4 prueba">
-        <label for="tipo_de_inmueble" class="form-label">Comuna</label>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <label for="comuna_cod" class="form-label">Comuna</label>
         <div class=" d-flex justify-content-start align-items-center">
           <select 
           type="text" 
@@ -179,7 +181,7 @@
           name="comuna_cod" 
           id="comuna_cod"
           required>
-            <option selected>Selecciona Comuna</option>
+            <option value="">Selecciona Comuna</option>
             {% for comuna in comunas %}
               <option value="{{comuna.cod}}">{{comuna.nombre}}</option>
             {% endfor %}
@@ -190,19 +192,9 @@
         </div>
       </div>
 
-      <!-- <div class="col-12 col-md-4">
-        <label for="comuna_cod" class="form-label">Comuna</label>
-        <input 
-          type="text" 
-          class="form-select"
-          name="comuna_cod"
-          id="comuna_cod"
-          placeholder="Comuna"
-          required
-          >
-      </div> -->
 
-      <div class="col-12 col-md-4">
+
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <label for="direccion" class="form-label">Dirección</label>
         <input 
           type="text" 
@@ -215,12 +207,12 @@
       </div>
 
 
-      <div class="col-12 col-md-12 mt-4 publicar-img-url">
+      <div class="col-12 col-md-12 mb-4 publicar-img-url">
         <label for="imagen_ruta" class="form-label">Imagen URL</label>
         <input 
           type="text" 
           class="form-control"
-          name="direimagen_rutaccion"
+          name="imagen_ruta"
           id="imagen_ruta"
           placeholder="Imagen URL"
           required
@@ -228,18 +220,7 @@
       </div>
 
 
-      <!-- <div class="col-12 col-md-4">
-        <label for="propietario_rut" class="form-label">Rut Asociado</label>
-        <input 
-          type="text" 
-          class="form-control"
-          name="propietario_rut"
-          id="propietario_rut"
-          placeholder="Rut Asociado"
-          value="{{user.username}}"
-          required
-          >
-      </div> -->
+
 
     </div>
 
@@ -263,12 +244,13 @@
   function filtrar_comunas () {
     // Recuperamos el valor seleccionado de la region
     const cod_seleccionado = $(this).val();
-    console.log(cod_seleccionado)
+      $("#comuna_cod").val("")
     // Ahora iteramos sobre todas las comunas, mostramos solo las que tengan el prefijo de la region seleccionada
     $('#comuna_cod option').each(function(){
-      console.log($(this).val())
+
       const comuna = $(this);
       const cod_comuna = comuna.val()
+      
       if (cod_seleccionado == cod_comuna.substring(0,2)) {
         // Si esto se cumple la comuna es parte de la region
         comuna.show()

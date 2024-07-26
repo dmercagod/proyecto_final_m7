@@ -13,10 +13,12 @@
       <a href="#">Nosotros</a>
     
       <a href="/inmuebles/todas/">Arrendar</a>
-    
+
+      {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}    
       <a href="{% url 'publicar-inmueble' %}">Publicar</a>
+      {% endif %}
       
-      <a href="#">Contacto</a>
+      <!-- <a href="#">Contacto</a> -->
     </p>
 
     <p class="footer-company-name">Arriendos Chile © 2024</p>

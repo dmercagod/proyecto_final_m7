@@ -1,13 +1,14 @@
-from main.models import Inmueble, PerfilUsuario, Comuna
+from main.models import Inmueble, PerfilUsuario, Comuna, Region
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.db.models import Q
+import logging
 from django.db import connection
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
 
-
+logger = logging.getLogger(__name__)
 
 # def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_inmueble, precio_mensual_arriendo, comuna_cod, propietario_rut):
 
@@ -28,7 +29,7 @@ from django.shortcuts import render, redirect
 #     comuna = comuna,
 #     propietario = propietario)
 
-def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, comuna_cod, propietario_rut):
+def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, imagen_ruta, comuna_cod, propietario_rut):
 
   comuna = Comuna.objects.get(cod=comuna_cod)
 
@@ -44,6 +45,7 @@ def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamie
     direccion = direccion,
     tipo_de_inmueble = tipo_de_inmueble,
     precio_mensual_arriendo = precio_mensual_arriendo,
+    imagen_ruta = imagen_ruta,
     comuna = comuna,
     propietario = propietario)
 
@@ -67,7 +69,8 @@ def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamie
 #   inmueble.save()
 
 
-def editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, inmueble_id, cod_comuna, rut):
+def editar_inmueble(inmueble_id, nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, imagen_ruta, cod_comuna, rut):
+
   inmueble = Inmueble.objects.get(id=inmueble_id)
   comuna = Comuna.objects.get(cod=cod_comuna)
   propietario = User.objects.get(username=rut)
@@ -82,6 +85,7 @@ def editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionami
   inmueble.direccion = direccion
   inmueble.tipo_de_inmueble = tipo_de_inmueble
   inmueble.precio_mensual_arriendo = precio_mensual_arriendo
+  inmueble.imagen_ruta = imagen_ruta
   inmueble.comuna = comuna
   inmueble.propietario = propietario
   inmueble.save()
@@ -224,3 +228,46 @@ def eliminar_usuario(rut):
   u = User.objects.get(username = rut)
   u.delete()
 
+
+
+
+
+
+
+def filtro_inmuebles(region_cod, comuna_cod, palabra, tipo):
+
+  filtro_palabra = None
+  if palabra != '':
+    filtro_palabra = Q(nombre__icontains=palabra) | Q(descripcion__icontains=palabra)
+
+  filtro_ubicacion = None
+  if comuna_cod != '':
+    comuna = Comuna.objects.get(cod=comuna_cod)
+    filtro_ubicacion = Q(comuna=comuna)
+  elif region_cod != '':
+    region = Region.objects.get(cod=region_cod)
+    comunas_region = region.comunas.all()
+    filtro_ubicacion = Q(comuna__in=comunas_region)
+
+  filtro_tipo = None
+  if tipo != '':
+      filtro_tipo = Q(tipo_de_inmueble__iexact=tipo)
+    
+
+
+  if filtro_ubicacion is None and filtro_palabra is None and filtro_tipo is None:
+      return Inmueble.objects.all()
+  elif filtro_ubicacion is not None and filtro_palabra is None and filtro_tipo is None:
+      return Inmueble.objects.filter(filtro_ubicacion)
+  elif filtro_ubicacion is None and filtro_palabra is not None and filtro_tipo is None:
+      return Inmueble.objects.filter(filtro_palabra)
+  elif filtro_ubicacion is None and filtro_palabra is None and filtro_tipo is not None:
+      return Inmueble.objects.filter(filtro_tipo)
+  elif filtro_ubicacion is not None and filtro_palabra is not None and filtro_tipo is None:
+      return Inmueble.objects.filter(filtro_palabra & filtro_ubicacion)
+  elif filtro_ubicacion is not None and filtro_palabra is None and filtro_tipo is not None:
+      return Inmueble.objects.filter(filtro_ubicacion & filtro_tipo)
+  elif filtro_ubicacion is None and filtro_palabra is not None and filtro_tipo is not None:
+      return Inmueble.objects.filter(filtro_palabra & filtro_tipo)
+  elif filtro_ubicacion is not None and filtro_palabra is not None and filtro_tipo is not None:
+      return Inmueble.objects.filter(filtro_palabra & filtro_ubicacion & filtro_tipo)

@@ -20,19 +20,15 @@ def solo_arrendadores(user):
 # Create your views here.
 
 def index(request):
-  # casas = Inmueble.objects.filter(tipo_de_inmueble__iexact='casa')
-  # context = {
-  #   'casas': casas
-  #   }
+
+  
   inmuebles = Inmueble.objects.all()
   context = {
     'inmuebles':inmuebles
   }
   return render(request, 'index.html', context)
 
-# @login_required
-# def perfil(request):
-#   return render(request, 'perfil.html')
+
 
 @login_required
 def perfil(request):
@@ -114,37 +110,37 @@ def registrar_usuario(request):
 
 
 
-def inmuebles(request, tipo_de_inmueble):
+def inmuebles(request):
+
   
-  casas = Inmueble.objects.filter(tipo_de_inmueble__iexact='casa')
-  departamentos = Inmueble.objects.filter(tipo_de_inmueble__iexact='departamento')
-  parcelas= Inmueble.objects.filter(tipo_de_inmueble__iexact='parcela')
-  inmuebles = Inmueble.objects.all()
+  datos = request.GET
+  region_cod = datos.get('region_cod', '')
+  comuna_cod = datos.get('comuna_cod', '')
+  palabra = datos.get('palabra', '')
+  tipo = datos.get('tipo_de_inmueble', '')
+  
+
+  inmuebles = filtro_inmuebles(region_cod, comuna_cod, palabra, tipo)
+
+  regiones = Region.objects.all()
+  comunas = Comuna.objects.all()
+
+  context = {
+    'inmuebles': inmuebles,
+    'comunas': comunas,
+    'regiones': regiones,
+    'tipos_inmueble': Inmueble.tipos_inmueble
+    }
+
+  return render(request,'inmuebles.html', context)
 
 
-  if tipo_de_inmueble == 'casa':
-    context = {
-      'casas': casas
-      }
-    return render(request,'inmuebles.html', context)
-  elif tipo_de_inmueble == 'departamento':
-    context = {
-      'departamentos': departamentos
-      }
-    return render(request,'inmuebles.html', context)
-  elif tipo_de_inmueble =='parcela':
-    context = {
-      'parcelas': parcelas
-      }
-    return render(request,'inmuebles.html', context)
-  elif tipo_de_inmueble =='todas':
-    context = {
-      'inmuebles':inmuebles
-      }
-    return render(request,'inmuebles.html', context)
-  else:
-    messages.info(request, "Tipo de inmueble inexistente")
-    return redirect('index')
+
+
+
+
+
+
 
 @user_passes_test(solo_arrendadores)
 def publicar_inmueble(request):
@@ -173,10 +169,11 @@ def crear_inmuebles(request):
   direccion = request.POST['direccion']
   tipo_de_inmueble = request.POST['tipo_de_inmueble']  
   precio_mensual_arriendo = int(request.POST['precio_mensual_arriendo'])
+  imagen_ruta = request.POST['imagen_ruta']
   comuna_cod = request.POST['comuna_cod']
   propietario_rut = request.user.username
     
-  crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, comuna_cod, propietario_rut)
+  crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, imagen_ruta, comuna_cod, propietario_rut)
 
   messages.success(request, "El inmueble se publicó correctamente")
   return redirect('publicar-inmueble')
@@ -187,61 +184,51 @@ def crear_inmuebles(request):
 @user_passes_test(solo_arrendadores)
 def editar_inmueble_creado(request, id):
 
-  regiones = Region.objects.all()
-  comunas = Comuna.objects.all()
-
   if request.method == 'GET':
-    #! 1. Obtengo el inmueble a editar
-    inmueble = Inmueble.objects.get(id=id)
 
+    inmueble = Inmueble.objects.get(id=id)
+    regiones = Region.objects.all()
+    comunas = Comuna.objects.all()
     cod_region = inmueble.comuna_id[0:2]
 
-
-    #! 3. Creo el 'context' con la info que requiere el template
     context = {
       'inmueble':inmueble,
       'regiones': regiones,
       'comunas': comunas,
       'cod_region': cod_region
     }
+
     return render(request, 'editar_inmueble.html', context)
+  
   else:
+      
       rut = request.user.username
 
-      nombre = request.POST['nombre'] 
-      descripcion = request.POST['descripcion'] 
-      m2_construidos = int(request.POST['m2_construidos'])
-      m2_totales = int(request.POST['m2_totales'])
-      estacionamientos = int(request.POST['estacionamientos'])
-      habitaciones = int(request.POST['habitaciones'])
-      baños = int(request.POST['baños'])
-      direccion = request.POST['direccion']
-      tipo_de_inmueble = request.POST['tipo_de_inmueble']  
-      precio_mensual_arriendo = int(request.POST['precio_mensual_arriendo'])
-      inmueble_id = id
-      cod_comuna = request.POST['comuna_cod']
-      rut = rut
-          
-      editar_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, baños, direccion, tipo_de_inmueble, precio_mensual_arriendo, inmueble_id, cod_comuna, rut)
-
-
+      editar_inmueble(
+        id,
+        request.POST['nombre'],
+        request.POST['descripcion'],
+        int(request.POST['m2_construidos']),
+        int(request.POST['m2_totales']),
+        int(request.POST['estacionamientos']),
+        int(request.POST['habitaciones']),
+        int(request.POST['baños']),
+        request.POST['direccion'],
+        request.POST['tipo_de_inmueble'],
+        int(request.POST['precio_mensual_arriendo']),
+        request.POST['imagen_ruta'],
+        request.POST['comuna_cod'],
+        rut
+      )
 
       messages.success(request, "El inmueble se modificó correctamente")
-      return redirect(request, 'editar_inmueble.html', context)
+      return redirect('editar-inmueble', id= id)
 
 
 
 
 
-# def ver_inmuebles_creados(request):
-#   current_user = request.user
-#   inmuebles = Inmueble.objects.filter(propietario_id=current_user.id)
 
-#   context = {
-#     'inmuebles':inmuebles
-#   }
-
-#   return render(request, 'ver_inmuebles_creados.html', context)
 
 @user_passes_test(solo_arrendadores)
 def eliminar_inmueble_creado(request, id):
@@ -277,18 +264,6 @@ def ver_inmuebles_creados(request):
   return render(request, 'ver_inmuebles_creados.html', context)
 
 
-def filtro_ciudades(request, nombre):
-  pass
 
 
 
-
-
-  
-
-
-def solo_arrendadores(req):
-  return HttpResponse('solo arrendadores')
-
-def solo_arrendatarios(req):
-  return HttpResponse('solo arrendatarios')

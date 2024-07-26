@@ -11,6 +11,16 @@
   font-family: Open Sans;
 }
 
+/** MENSAJE ALERTA **/
+.contenedor-mensaje-alerta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+}
+
 /** Navbar **/
 
 .navbar {
@@ -29,15 +39,16 @@
   --bs-btn-hover-bg: #20B2AA;
   --bs-btn-hover-border-color: #20B2AA;
   --bs-btn-bg: rgba(32, 178, 171, 0.808);
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
   
 }
 
 .saludo-user {
-  font-size: large;
+  /* font-size: large; */
   font-size: 0.9rem;
   margin-top: 0.3rem;
   display: inline-block;
+  font-weight: bold;
 
   
 }
@@ -93,8 +104,9 @@ body{
 .card img{
   max-height: 250px;
 
-
 }
+
+
 
 .card-subtitle, .card-text {
   font-size: 0.9rem;
@@ -247,6 +259,7 @@ padding: 55px 50px;
 .footer-distributed .footer-right{
 display: inline-block;
 vertical-align: top;
+
 }
 
 /* Footer left */
@@ -312,6 +325,8 @@ vertical-align: middle;
 .footer-distributed .footer-center i.fa-envelope{
 font-size: 17px;
 line-height: 38px;
+
+
 }
 
 .footer-distributed .footer-center p{
