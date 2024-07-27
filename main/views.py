@@ -19,6 +19,7 @@ def solo_arrendadores(user):
 
 # Create your views here.
 
+
 def index(request):
 
   
@@ -109,7 +110,7 @@ def registrar_usuario(request):
   return redirect('register')
 
 
-
+@login_required
 def inmuebles(request):
 
   

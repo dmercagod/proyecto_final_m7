@@ -12,7 +12,7 @@
       
       <a href="#">Nosotros</a>
     
-      <a href="/inmuebles/todas/">Arrendar</a>
+      <a href="{% url 'inmuebles' %}">Arrendar</a>
 
       {% if user.perfil_usuario.rol == 'arrendador' or user.is_staff %}    
       <a href="{% url 'publicar-inmueble' %}">Publicar</a>

@@ -32,7 +32,7 @@
                     <a href="#"><button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a> -->
 
                     <a href="{% url 'editar-inmueble' id=inmueble.id %}" type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href="#" type="button" class="btn btn-danger" onclick="eliminar(event)">
+                    <a href="#" type="button" class="btn btn-danger" id="{{inmueble.id}}" onclick="eliminar(event)">
                       
                       <i id="{{inmueble.id}}" class="fa-solid fa-trash"></i></a>
                   </div>

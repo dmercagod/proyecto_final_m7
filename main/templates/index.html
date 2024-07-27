@@ -4,7 +4,7 @@
 
 
 {% block header %}
-  <h5 class="text-center header-index mt-5 mb-4"><i class="fa-solid fa-key"></i>&nbsp;| Encuentra <b><a href="/inmuebles/casa/">casas</a></b>, <b><a href="/inmuebles/departamento/">departamentos</a></b> y <b><a href="/inmuebles/parcela/">parecelas</a></b> en arriendo</h5>
+  <h5 class="text-center header-index mt-5 mb-4"><i class="fa-solid fa-key"></i>&nbsp;| Encuentra <b><a href="{% url 'inmuebles' %}?tipo_de_inmueble=casa">casas</a></b>, <b><a href="{% url 'inmuebles' %}?tipo_de_inmueble=departamento">departamentos</a></b> y <b><a href="{% url 'inmuebles' %}?tipo_de_inmueble=parcela">parecelas</a></b> en arriendo</h5>
 
   <div id="carouselExampleIndicators" class="carousel slide">
     <div class="carousel-indicators">

@@ -20,10 +20,10 @@
 
 
 
-
+      {% if user.is_authenticated or user.is_staff %}
       <li class="nav-item dropdown saludo-usuario" style="list-style: none;">
         <a class="nav-link dropdown-toggle boton-arrendar" href="/inmuebles/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-
+      {% endif %}
           {% if user.is_staff %}
           <div class="saludo-user">
             <p>Hola, <br>{{user.username | title}}</p>
