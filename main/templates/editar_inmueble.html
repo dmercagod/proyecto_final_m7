@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
+
+
 
   <div class="contenedor-publicar">
     <h3 class="text-center perfil-publicar mb-5">Editar inmueble</h3>
@@ -233,26 +236,26 @@
 {% endblock %}
 
 {% block js %}
-<script>
-  function filtrar_comunas () {
-    // Recuperamos el valor seleccionado de la region
-    const cod_seleccionado = $(this).val();
-    console.log(cod_seleccionado)
-    // Ahora iteramos sobre todas las comunas, mostramos solo las que tengan el prefijo de la region seleccionada
-    $('#comuna_cod option').each(function(){
-      console.log($(this).val())
-      const comuna = $(this);
-      const cod_comuna = comuna.val()
-      if (cod_seleccionado == cod_comuna.substring(0,2)) {
-        // Si esto se cumple la comuna es parte de la region
-        comuna.show()
-      
-      } else {
-        comuna.hide()
-      }
-    })
-  }
+  <script>
+    function filtrar_comunas () {
+      // Recuperamos el valor seleccionado de la region
+      const cod_seleccionado = $(this).val();
+      console.log(cod_seleccionado)
+      // Ahora iteramos sobre todas las comunas, mostramos solo las que tengan el prefijo de la region seleccionada
+      $('#comuna_cod option').each(function(){
+        console.log($(this).val())
+        const comuna = $(this);
+        const cod_comuna = comuna.val()
+        if (cod_seleccionado == cod_comuna.substring(0,2)) {
+          // Si esto se cumple la comuna es parte de la region
+          comuna.show()
+        
+        } else {
+          comuna.hide()
+        }
+      })
+    }
 
-  $('#region_cod').on('change', filtrar_comunas)
-</script>
+    $('#region_cod').on('change', filtrar_comunas)
+  </script>
 {% endblock %}
