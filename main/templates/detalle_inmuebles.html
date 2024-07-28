@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+
+  <div class="contenedor-detalle ">
+    <h3 class="text-center my-5">
+      {{inmueble.nombre | title}}
+    </h3>
+
+    <div class="d-flex justify-content-center ">
+      <div class="card mb-3 card-detalle" >
+        <div class="row g-0 h-100">
+          <div class="col-md-7 h-100">
+            <img src="{{inmueble.imagen_ruta}}"  class="img-fluid rounded-start" alt="{{inmueble.descripcion | title}}" style="min-height: 100%;">
+          </div>
+          <div class="col-md-5 d-flex flex-column align-items-start">
+            <div class="card-body mt-5">
+
+              <h6 class="text-body-secondary detalle-subtitulo mb-2 fst-italic" style="font-size: 0.8rem !important;">{{inmueble.tipo_de_inmueble | title}} en arriendo</h7><br>
+  
+              <h3 class=" titulo-card-index mb-5 fs-4">{{inmueble.descripcion | title}}</h3>
+
+              <h5 class="">$ {{inmueble.precio_mensual_arriendo|format_number}}</h5>
+          
+
+
+              <div class="mt-4 detalle-tiene">
+                <p class=""><i class="fa-brands fa-codepen"></i> {{inmueble.m2_totales | title}} m² totales</p>
+                <p class=""><i class="fa-solid fa-bed"></i> {{inmueble.habitaciones | title}} habitaciones</p>
+                <p class=""><i class="fa-solid fa-toilet mb-4"></i> {{inmueble.baños | title}} baños</p>
+              </div>
+              
+              <h6 style="font-size: 0.9rem;">Dirección:</h6>              
+              <p class="text-body-secondary" style="font-size: 0.98rem;">{{inmueble.direccion | title}}, {{inmueble.comuna.region.nombre}}, {{inmueble.comuna.nombre}}</p>
+
+              <h6 style="font-size: 0.9rem;">Propietario:</h6>
+              <p class="text-body-secondary" style="font-size: 0.98rem;">{{inmueble.propietario.first_name}} {{inmueble.propietario.last_name}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  
+
+{% endblock %}

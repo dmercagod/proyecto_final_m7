@@ -99,20 +99,22 @@
 
           {% for inmueble in inmuebles %}
             <div class="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center mb-5">
-              <div class="card" style="width: 18rem;">
-                <img class="imagenes-inmuebles" src="{{inmueble.imagen_ruta}}" class="card-img-top" alt="...">
-                <div class="card-body">
-    
-                  <h5 class="card-title">$ {{inmueble.precio_mensual_arriendo|format_number}}</h5>
-    
-                  <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{inmueble.tipo_de_inmueble | title}} en arriendo</h7>
-    
-                  <h5 class="card-title titulo-card-index">{{inmueble.descripcion | title}}</h5>
-    
-                  <p class="card-text">{{inmueble.direccion | title}}</p>
-    
+              <a style="text-decoration: none;" href="{% url 'detalle-inmueble' id=inmueble.id %}">
+                <div class="card" style="width: 18rem;">
+                  <img class="imagenes-inmuebles" src="{{inmueble.imagen_ruta}}" class="card-img-top" alt="{{inmueble.descripcion | title}}">
+                  <div class="card-body">
+      
+                    <h5 class="card-title">$ {{inmueble.precio_mensual_arriendo|format_number}}</h5>
+      
+                    <h7 class="card-subtitle mb-2 text-body-secondary mt-5">{{inmueble.tipo_de_inmueble | title}} en arriendo</h7>
+      
+                    <h5 class="card-title titulo-card-index">{{inmueble.descripcion | title}}</h5>
+      
+                    <p class="card-text">{{inmueble.direccion | title}}</p>
+      
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>            
           {% endfor %}
 

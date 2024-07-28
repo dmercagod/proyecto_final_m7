@@ -10,12 +10,13 @@ urlpatterns = [
   path('registrar-usuario/', registrar_usuario, name = 'registrar-usuario'),
   path('accounts/cambiar-contraseña/', cambiar_contraseña, name = 'cambiar-contraseña'),
   path('inmuebles/', inmuebles, name = 'inmuebles'),
-
   path('publicar-inmueble/', publicar_inmueble, name = 'publicar-inmueble'),
   path('crear-inmuebles/', crear_inmuebles, name = 'crear-inmuebles'),
   path('inmueble/editar/<id>/', editar_inmueble_creado, name = 'editar-inmueble'),
   path('inmueble/ver/', ver_inmuebles_creados, name = 'ver-inmuebles'),
   path('inmueble/eliminar/<id>', eliminar_inmueble_creado, name = 'eliminar-inmueble'),
+  path('inmueble/detalle/<id>', detalle_inmueble, name = 'detalle-inmueble'),
+  
 
   
   

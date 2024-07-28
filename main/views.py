@@ -266,5 +266,26 @@ def ver_inmuebles_creados(request):
 
 
 
+@login_required
+def detalle_inmueble(request, id):
+  id = int(id)
+  inmueble_encontrado = None
+  inmuebles = Inmueble.objects.all()
+  for inmueble in inmuebles:
+    if inmueble.id == id:
+      inmueble_encontrado = inmueble
+      break
+  regiones = Region.objects.all()
+  comunas = Comuna.objects.all()
+  cod_region = inmueble.comuna_id[0:2]
 
+  context = {
+    'inmueble': inmueble_encontrado,
+    'regiones': regiones,
+    'comunas': comunas,
+    'cod_region': cod_region
+    
+  }
+
+  return render(request, 'detalle_inmuebles.html', context)
 

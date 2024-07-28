@@ -199,7 +199,7 @@ body{
 
 /** PERFIL **/
 
-.contenedor-perfil, .contenedor-registro, .contenedor-login, .contenedor-publicar {
+.contenedor-perfil, .contenedor-registro, .contenedor-login, .contenedor-publicar, .contenedor-detalle {
   color: #1E375A;
   font-weight: 100;
   margin: 0 10rem;
@@ -228,6 +228,38 @@ body{
 /* .prueba .form-select{
   color: #595C5F !important;
 } */
+
+
+/** DETALLES **/
+
+.card-detalle {
+  min-width: 60rem;
+  min-height: 30rem;
+}
+
+
+.card-detalle img{
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+.contenedor-detalle {
+  color: #1E375A !important;
+  font-weight: 100;
+  margin: 0 10rem;
+  margin-bottom: 10rem;
+  margin-top: 5rem;
+}
+
+
+.detalle-tiene {
+  font-size: 0.96rem !important;
+  line-height: 0%;
+
+}
+
+
 
 /** FOOTER **/
 
