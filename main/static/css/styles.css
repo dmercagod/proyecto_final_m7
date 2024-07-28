@@ -199,7 +199,7 @@ body{
 
 /** PERFIL **/
 
-.contenedor-perfil, .contenedor-registro, .contenedor-login, .contenedor-publicar, .contenedor-detalle {
+.contenedor-perfil, .contenedor-registro, .contenedor-login, .contenedor-publicar {
   color: #1E375A;
   font-weight: 100;
   margin: 0 10rem;
@@ -259,7 +259,15 @@ body{
 
 }
 
+/** NOSOTROS **/
 
+.contenedor-nosotros {
+  color: #1E375A !important;
+  font-weight: 100;
+  margin: 0 10rem;
+  margin-bottom: 10rem;
+  margin-top: 5rem;
+}
 
 /** FOOTER **/
 

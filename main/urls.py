@@ -16,6 +16,7 @@ urlpatterns = [
   path('inmueble/ver/', ver_inmuebles_creados, name = 'ver-inmuebles'),
   path('inmueble/eliminar/<id>', eliminar_inmueble_creado, name = 'eliminar-inmueble'),
   path('inmueble/detalle/<id>', detalle_inmueble, name = 'detalle-inmueble'),
+  path('nosotros/', nosotros, name = 'nosotros'),
   
 
   

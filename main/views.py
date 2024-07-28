@@ -289,3 +289,6 @@ def detalle_inmueble(request, id):
 
   return render(request, 'detalle_inmuebles.html', context)
 
+
+def nosotros(request):
+  return render(request, 'nosotros.html')
